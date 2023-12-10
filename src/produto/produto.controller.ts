@@ -111,25 +111,32 @@ export class ProdutoController {
     }
   }
 
-  @Delete(':/id')
-  async removeProduto(@Param() id: string) {
-    const produtoDeletado = await this.produtoRepositoy.remove(id);
+  @Delete('/:id')
+  async removeProduto(@Param('id') id: string) {
+    try {
+      const produtoDeletado = await this.produtoRepositoy.remove(id);
 
-    return {
-      message: 'produto removido',
-      produto: new ListarProdutoDTO(
-        produtoDeletado.produtoId,
-        produtoDeletado.usuarioId,
-        produtoDeletado.nome,
-        produtoDeletado.valor,
-        produtoDeletado.quantidadeDisponivel,
-        produtoDeletado.descricao,
-        produtoDeletado.caracteristicas,
-        produtoDeletado.imagens,
-        produtoDeletado.categoria,
-        produtoDeletado.dataCriacao,
-        produtoDeletado.dataAtualizacao,
-      ),
-    };
+      return {
+        message: 'produto removido',
+        produto: new ListarProdutoDTO(
+          produtoDeletado.produtoId,
+          produtoDeletado.usuarioId,
+          produtoDeletado.nome,
+          produtoDeletado.valor,
+          produtoDeletado.quantidadeDisponivel,
+          produtoDeletado.descricao,
+          produtoDeletado.caracteristicas,
+          produtoDeletado.imagens,
+          produtoDeletado.categoria,
+          produtoDeletado.dataCriacao,
+          produtoDeletado.dataAtualizacao,
+        ),
+      };
+    } catch (error) {
+      return {
+        message: 'erro ao tentar deletar produto',
+        error: error.message,
+      };
+    }
   }
 }
