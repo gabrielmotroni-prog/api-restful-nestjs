@@ -33,16 +33,14 @@ export class ProdutoRepositoy {
 
     //remover da listagem
     this.produtos = this.produtos.filter(
-      (produtoSalvo) => produtoSalvo.produtoId !== produto.produtoId,
+      (produtoSalvo) => produtoSalvo.id !== produto.id,
     );
 
     return produto;
   }
 
   private async buscarPorId(id: string) {
-    const possivelProduto = this.produtos.find(
-      (produto) => produto.produtoId === id,
-    );
+    const possivelProduto = this.produtos.find((produto) => produto.id === id);
 
     if (!possivelProduto) {
       throw new Error('Produto não existe');

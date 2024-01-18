@@ -23,34 +23,34 @@ export class ProdutoController {
   async cadastrarProduto(@Body() dadosProduto: CriarProdutoDTO) {
     // dadosProduto foram validados pelo DTO
     const produtoEntity = new ProdutoEntity();
-    produtoEntity.produtoId = uuidv4();
+    produtoEntity.id = uuidv4();
     produtoEntity.usuarioId = dadosProduto.usuarioId;
     produtoEntity.nome = dadosProduto.nome;
     produtoEntity.valor = dadosProduto.valor;
     produtoEntity.quantidadeDisponivel = dadosProduto.quantidadeDisponivel;
     produtoEntity.descricao = dadosProduto.descricao;
-    produtoEntity.caracteristicas = dadosProduto.caracteristicas;
-    produtoEntity.imagens = dadosProduto.imagens;
+    //produtoEntity.caracteristicas = dadosProduto.caracteristicas;
+    //produtoEntity.imagens = dadosProduto.imagens;
     produtoEntity.categoria = dadosProduto.categoria;
-    produtoEntity.dataCriacao = dadosProduto.dataCriacao;
-    produtoEntity.dataAtualizacao = dadosProduto.dataAtualizacao;
+    produtoEntity.createdAt = dadosProduto.dataCriacao;
+    produtoEntity.updatedAt = dadosProduto.dataAtualizacao;
 
     await this.produtoRepositoy.cadastrarProduto(produtoEntity);
 
     return {
       message: 'produto criado',
       produto: new ListarProdutoDTO(
-        produtoEntity.produtoId,
+        produtoEntity.id,
         produtoEntity.usuarioId,
         produtoEntity.nome,
         produtoEntity.valor,
         produtoEntity.quantidadeDisponivel,
         produtoEntity.descricao,
-        produtoEntity.caracteristicas,
-        produtoEntity.imagens,
+        //produtoEntity.caracteristicas,
+        //produtoEntity.imagens,
         produtoEntity.categoria,
-        produtoEntity.dataCriacao,
-        produtoEntity.dataAtualizacao,
+        produtoEntity.createdAt,
+        produtoEntity.updatedAt,
       ),
     };
   }
@@ -62,17 +62,17 @@ export class ProdutoController {
     const produtoLista = produtosSalvos.map(
       (produto) =>
         new ListarProdutoDTO(
-          produto.produtoId,
+          produto.id,
           produto.usuarioId,
           produto.nome,
           produto.valor,
           produto.quantidadeDisponivel,
           produto.descricao,
-          produto.caracteristicas,
-          produto.imagens,
+          //produto.caracteristicas,
+          //produto.imagens,
           produto.categoria,
-          produto.dataCriacao,
-          produto.dataAtualizacao,
+          produto.createdAt,
+          produto.updatedAt,
         ),
     );
     return produtoLista;
@@ -93,17 +93,17 @@ export class ProdutoController {
       return {
         message: 'produto atualizado',
         produto: new ListarProdutoDTO(
-          produtoAtualizado.produtoId,
+          produtoAtualizado.id,
           produtoAtualizado.usuarioId,
           produtoAtualizado.nome,
           produtoAtualizado.valor,
           produtoAtualizado.quantidadeDisponivel,
           produtoAtualizado.descricao,
-          produtoAtualizado.caracteristicas,
-          produtoAtualizado.imagens,
+          //produtoAtualizado.caracteristicas,
+          //produtoAtualizado.imagens,
           produtoAtualizado.categoria,
-          produtoAtualizado.dataCriacao,
-          produtoAtualizado.dataAtualizacao,
+          produtoAtualizado.createdAt,
+          produtoAtualizado.updatedAt,
         ),
       };
     } catch (error) {
@@ -119,17 +119,17 @@ export class ProdutoController {
       return {
         message: 'produto removido',
         produto: new ListarProdutoDTO(
-          produtoDeletado.produtoId,
+          produtoDeletado.id,
           produtoDeletado.usuarioId,
           produtoDeletado.nome,
           produtoDeletado.valor,
           produtoDeletado.quantidadeDisponivel,
           produtoDeletado.descricao,
-          produtoDeletado.caracteristicas,
-          produtoDeletado.imagens,
+          //produtoDeletado.caracteristicas,
+          //produtoDeletado.imagens,
           produtoDeletado.categoria,
-          produtoDeletado.dataCriacao,
-          produtoDeletado.dataAtualizacao,
+          produtoDeletado.createdAt,
+          produtoDeletado.updatedAt,
         ),
       };
     } catch (error) {
