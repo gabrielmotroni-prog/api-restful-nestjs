@@ -57,10 +57,16 @@ export class ProdutoService {
       possivelProduto[chave] = valor;
     });
 
-    const produtoAtualizado = await this.produtoReposity.update(
-      id,
-      possivelProduto,
-    );
+    await this.produtoReposity.update(id, possivelProduto);
+  }
+
+  async deletarProduto(id: string) {
+    const possivelProduto = await this.buscarPorId(id);
+
+    if (!possivelProduto) {
+      throw new Error('Produto não existe');
+    }
+    await this.produtoReposity.delete(id);
   }
 
   private async buscarPorId(id: string) {

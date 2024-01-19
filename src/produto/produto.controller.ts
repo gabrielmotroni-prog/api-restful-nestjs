@@ -90,23 +90,11 @@ export class ProdutoController {
   @Delete('/:id')
   async removeProduto(@Param('id') id: string) {
     try {
-      const produtoDeletado = await this.produtoRepositoy.remove(id);
+      await this.produtoService.deletarProduto(id);
 
       return {
         message: 'produto removido',
-        produto: new ListarProdutoDTO(
-          produtoDeletado.id,
-          produtoDeletado.usuarioId,
-          produtoDeletado.nome,
-          produtoDeletado.valor,
-          produtoDeletado.quantidadeDisponivel,
-          produtoDeletado.descricao,
-          //produtoDeletado.caracteristicas,
-          //produtoDeletado.imagens,
-          produtoDeletado.categoria,
-          produtoDeletado.createdAt,
-          produtoDeletado.updatedAt,
-        ),
+        id: id,
       };
     } catch (error) {
       console.log(error);
