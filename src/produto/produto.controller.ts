@@ -14,10 +14,14 @@ import { ProdutoEntity } from './produto.entity';
 import { v4 as uuidv4 } from 'uuid';
 import { AtualizarProdutoDTO } from './dto/atualizarProduto.dto';
 import { ListarProdutoDTO } from './dto/listarProduto.dto';
+import { ProdutoService } from './produto.service';
 
 @Controller('/produtos')
 export class ProdutoController {
-  constructor(private produtoRepositoy: ProdutoRepositoy) {}
+  constructor(
+    private readonly produtoRepositoy: ProdutoRepositoy,
+    private readonly produtoService: ProdutoService,
+  ) {}
 
   @Post()
   async cadastrarProduto(@Body() dadosProduto: CriarProdutoDTO) {
@@ -35,7 +39,7 @@ export class ProdutoController {
     produtoEntity.createdAt = dadosProduto.dataCriacao;
     produtoEntity.updatedAt = dadosProduto.dataAtualizacao;
 
-    await this.produtoRepositoy.cadastrarProduto(produtoEntity);
+    await this.produtoService.criaProduto(produtoEntity);
 
     return {
       message: 'produto criado',
@@ -57,24 +61,8 @@ export class ProdutoController {
 
   @Get()
   async listarProdutos() {
-    const produtosSalvos = await this.produtoRepositoy.listarProdutos();
+    const produtoLista = await this.produtoService.listaProduto();
 
-    const produtoLista = produtosSalvos.map(
-      (produto) =>
-        new ListarProdutoDTO(
-          produto.id,
-          produto.usuarioId,
-          produto.nome,
-          produto.valor,
-          produto.quantidadeDisponivel,
-          produto.descricao,
-          //produto.caracteristicas,
-          //produto.imagens,
-          produto.categoria,
-          produto.createdAt,
-          produto.updatedAt,
-        ),
-    );
     return produtoLista;
   }
 
@@ -83,31 +71,19 @@ export class ProdutoController {
     @Param('id') id: string,
     @Body() novosDados: AtualizarProdutoDTO,
   ) {
-    //novosDados dados validados
+    //novosDados dados já validados
     try {
-      const produtoAtualizado = await this.produtoRepositoy.atualiza(
-        id,
-        novosDados,
-      );
+      await this.produtoService.atualizaProduto(id, novosDados);
 
       return {
         message: 'produto atualizado',
-        produto: new ListarProdutoDTO(
-          produtoAtualizado.id,
-          produtoAtualizado.usuarioId,
-          produtoAtualizado.nome,
-          produtoAtualizado.valor,
-          produtoAtualizado.quantidadeDisponivel,
-          produtoAtualizado.descricao,
-          //produtoAtualizado.caracteristicas,
-          //produtoAtualizado.imagens,
-          produtoAtualizado.categoria,
-          produtoAtualizado.createdAt,
-          produtoAtualizado.updatedAt,
-        ),
+        id: id,
       };
     } catch (error) {
-      return { message: 'erro ao tentar atualizar produto' };
+      return {
+        message: 'erro ao tentar atualizar produto',
+        error: error.message,
+      };
     }
   }
 
@@ -133,6 +109,7 @@ export class ProdutoController {
         ),
       };
     } catch (error) {
+      console.log(error);
       return {
         message: 'erro ao tentar deletar produto',
         error: error.message,

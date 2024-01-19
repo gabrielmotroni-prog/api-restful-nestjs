@@ -12,7 +12,7 @@ import {
 //   descricao: string;
 // }
 
-@Entity({ name: 'produtosXXX' })
+@Entity({ name: 'produtos' })
 export class ProdutoEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;

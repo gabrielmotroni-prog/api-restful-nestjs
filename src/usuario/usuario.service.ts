@@ -47,7 +47,7 @@ export class UsuarioService {
     // Mapear quais chaves de usuario foi passada para atualizar.
     // O quesito de ser do tipo ou não ja foi validado com Partial.
     Object.entries(usuarioEntity).forEach(([chave, valor]) => {
-      //nao atualzia id
+      //nao atualiza id
       if (chave === 'id') {
         return;
       }
