@@ -33,8 +33,8 @@ export class ProdutoController {
     produtoEntity.valor = dadosProduto.valor;
     produtoEntity.quantidadeDisponivel = dadosProduto.quantidadeDisponivel;
     produtoEntity.descricao = dadosProduto.descricao;
-    //produtoEntity.caracteristicas = dadosProduto.caracteristicas;
-    //produtoEntity.imagens = dadosProduto.imagens;
+    produtoEntity.caracteristicas = dadosProduto.caracteristicas;
+    produtoEntity.imagens = dadosProduto.imagens;
     produtoEntity.categoria = dadosProduto.categoria;
     produtoEntity.createdAt = dadosProduto.dataCriacao;
     produtoEntity.updatedAt = dadosProduto.dataAtualizacao;
@@ -50,8 +50,8 @@ export class ProdutoController {
         produtoEntity.valor,
         produtoEntity.quantidadeDisponivel,
         produtoEntity.descricao,
-        //produtoEntity.caracteristicas,
-        //produtoEntity.imagens,
+        produtoEntity.caracteristicas,
+        produtoEntity.imagens,
         produtoEntity.categoria,
         produtoEntity.createdAt,
         produtoEntity.updatedAt,

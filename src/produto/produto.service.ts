@@ -28,6 +28,8 @@ export class ProdutoService {
           produto.valor,
           produto.quantidadeDisponivel,
           produto.descricao,
+          produto.caracteristicas,
+          produto.imagens,
           produto.categoria,
           produto.createdAt,
           produto.updatedAt,
