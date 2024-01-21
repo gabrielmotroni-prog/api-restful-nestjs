@@ -3,7 +3,7 @@ import { ProdutoEntity } from './produto.entity';
 
 @Entity('produto_caracteristicas')
 export class ProdutoCaracteristicaEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('uuid') //auto gerado pelo bd
   id: string;
 
   @Column({ name: 'nome', length: 100, nullable: false })
@@ -13,10 +13,14 @@ export class ProdutoCaracteristicaEntity {
   descricao: string;
 
   //explicitar no codigo
-  @ManyToOne(() => ProdutoEntity, (produtoEntity) => produtoEntity.id, {
-    orphanedRowAction: 'delete',
-    onDelete: 'CASCADE', // ao deletar produto apaga imagem relacionada
-    onUpdate: 'CASCADE', // ao atualizar produto atualiza imagem relacionada
-  })
+  @ManyToOne(
+    () => ProdutoEntity,
+    (produtoEntity) => produtoEntity.caracteristicas,
+    {
+      orphanedRowAction: 'delete',
+      onDelete: 'CASCADE', // ao deletar produto apaga imagem relacionada
+      onUpdate: 'CASCADE', // ao atualizar produto atualiza imagem relacionada
+    },
+  )
   produto: ProdutoEntity;
 }

@@ -59,7 +59,9 @@ export class ProdutoService {
       possivelProduto[chave] = valor;
     });
 
-    await this.produtoReposity.update(id, possivelProduto);
+    //update não funciona.
+    //await this.produtoReposity.update(id, possivelProduto);
+    await this.produtoReposity.save(possivelProduto);
   }
 
   async deletarProduto(id: string) {

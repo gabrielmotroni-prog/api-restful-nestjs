@@ -20,6 +20,7 @@ export class PostgresConfigService implements TypeOrmOptionsFactory {
       database: this.configService.get<string>('DB_NAME'),
       entities: [__dirname + '/../**/*.entity.{js,ts}'],
       synchronize: true,
+      //logging: true, // permite que você registre as consultas SQL no log
     };
   }
 }

@@ -3,7 +3,7 @@ import { ProdutoEntity } from './produto.entity';
 
 @Entity('produto_imagens')
 export class ProdutoImagemEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('uuid') //auto gerado pelo bd
   id: string;
 
   @Column({ name: 'url', length: 100, nullable: false })
